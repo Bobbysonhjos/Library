@@ -9,7 +9,7 @@ namespace Library.Data
 {
     public class LibraryContext:DbContext
     {
-        public LibraryContext(DbContextOptions<LibraryContext> options):base(options) // ctor
+        public LibraryContext(DbContextOptions<LibraryContext> options):base(options) 
         {
 
         }

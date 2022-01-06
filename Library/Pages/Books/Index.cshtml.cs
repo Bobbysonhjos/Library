@@ -35,47 +35,33 @@ namespace Library.Pages.Books
 
         public async Task<IActionResult> OnGetAuthorSort(string order)
         {
-            switch (order)
+            Book = await _context.Books.Include(b => b.Author).ToListAsync();
+            Book = order switch
             {
-                case "Asc":
-                    Book = await _context.Books.Include(b => b.Author).OrderBy(b => b.Author.Name).ToListAsync();
-                    return Page();
+                "Asc" => Book.OrderBy(b => b.Author.Name).ToList(),
+                "Desc" => Book.OrderByDescending(b => b.Author.Name).ToList(),
+                _ => Book.OrderBy(b => b.Author.Name).ToList()
+            };
+            return Page();
 
-                case "Desc":
-                    Book = await _context.Books.Include(b => b.Author).OrderByDescending(b => b.Author.Name).ToListAsync();
-                    return Page();
-
-                default:
-                    Book = await _context.Books.Include(b => b.Author).ToListAsync();
-                    return Page();
-
-            }
         }
 
 
-            public async Task<IActionResult> OnGetGenreSort(string order)
-            {
+        public async Task<IActionResult> OnGetGenreSort(string order)
+        {
             Book = await _context.Books.Include(b => b.Author).ToListAsync();
-            switch (order)
-                {
-                    case "Asc":
-                    Book=Book.OrderBy(b => b.Genre.ToString()).ToList();
-                       // Book = await _context.Books.Include(b => b.Author).OrderBy(b=>(int)Enum.Parse(typeof(Genre),b.Genre.ToString())).ToListAsync();
-                        return Page();
+            Book = order switch
+            {
+                "Asc" => Book.OrderBy(b => b.Genre.ToString()).ToList(),
+                "Desc" => Book.OrderByDescending(b => b.Genre.ToString()).ToList(),
+                _ => Book.OrderBy(b => b.Title).ToList()
+            };
+            return Page();
 
-                    case "Desc":
-                    Book = Book.OrderByDescending(b => b.Genre.ToString()).ToList();
-                    // Book = await _context.Books.Include(b => b.Author).OrderByDescending(b => b.Genre).ToListAsync();
-                    return Page();
-
-                    default:
-                       // Book = await _context.Books.Include(b => b.Author).ToListAsync();
-                        return Page();
-
-                }
-            
+           
 
 
-            }
+
+        }
     }
 }
