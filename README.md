@@ -1,4 +1,5 @@
-# DigitalLibrary
+# Library
 
-Create database with library.sql file
+Create database with DigitalLibrary.sql file
+
 Change connection string in appsettings
